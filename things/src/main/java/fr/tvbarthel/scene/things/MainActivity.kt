@@ -2,31 +2,21 @@ package fr.tvbarthel.scene.things
 
 import android.app.Activity
 import android.os.Bundle
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_main.*
 
-/**
- * Skeleton of an Android Things activity.
- *
- * Android Things peripheral APIs are accessible through the class
- * PeripheralManagerService. For example, the snippet below will open a GPIO pin and
- * set it to HIGH:
- *
- * <pre>{@code
- * val service = PeripheralManagerService()
- * val mLedGpio = service.openGpio("BCM6")
- * mLedGpio.setDirection(Gpio.DIRECTION_OUT_INITIALLY_LOW)
- * mLedGpio.value = true
- * }</pre>
- * <p>
- * For more complex peripherals, look for an existing user-space driver, or implement one if none
- * is available.
- *
- * @see <a href="https://github.com/androidthings/contrib-drivers#readme">https://github.com/androidthings/contrib-drivers#readme</a>
- *
- */
 class MainActivity : Activity() {
+
+    companion object {
+        const val IMAGE_URL = "https://cdn.pixabay.com/photo/2017/12/30/08/41/panoramic-3049543_960_720.jpg"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        Picasso.get()
+                .load(IMAGE_URL)
+                .into(mainImageView)
     }
 }

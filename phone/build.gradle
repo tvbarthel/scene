@@ -16,6 +16,32 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    // implementation = impl of presenters.
+    flavorDimensions "presenter"
+
+    productFlavors {
+
+        // presenter completely mocked
+        mock {
+            dimension "presenter"
+            applicationIdSuffix '.mock'
+            versionNameSuffix '-mock'
+        }
+
+        // presenter based on production component
+        live {
+            dimension "presenter"
+        }
+    }
+
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if (names.contains("mock") && variant.buildType.name == "release") {
+            variant.ignore = true
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false

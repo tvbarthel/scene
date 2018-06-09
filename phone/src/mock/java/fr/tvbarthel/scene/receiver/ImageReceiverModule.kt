@@ -1,5 +1,6 @@
 package fr.tvbarthel.scene.receiver
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 
@@ -10,5 +11,5 @@ import dagger.Provides
 class ImageReceiverModule {
 
     @Provides
-    fun provideImageReceiverPresenter(): ImageReceiverContract.Presenter = ImageReceiverPresenterImpl()
+    fun provideImageReceiverPresenter(context: Context): ImageReceiverContract.Presenter = ImageReceiverPresenterImpl(context)
 }

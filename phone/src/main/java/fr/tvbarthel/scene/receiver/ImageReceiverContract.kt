@@ -1,6 +1,7 @@
 package fr.tvbarthel.scene.receiver
 
-import android.net.Uri
+import android.content.Intent
+import android.graphics.Bitmap
 
 /**
  * Interface used to hold contracts of both view and presenter responsible for
@@ -25,12 +26,18 @@ interface ImageReceiverContract {
         fun detach(view: View)
 
         /**
-         * Must send the given image to the given scene.
+         * Must extract and prepare the image to be send.
          *
-         * @param uri uri of the image.
-         * @param scene ip and port of the Scene. Format ip:port.
+         * @param intent intent of the image shared by the user.
          */
-        fun send(uri: Uri, scene: String)
+        fun prepareImage(intent: Intent)
+
+        /**
+         * Must send the prepared image if any.
+         *
+         * @param scene scene to which the prepared image must be send.
+         */
+        fun sendImage(scene: String)
 
         /**
          * Must return the last Scene used or null if none was already used.
@@ -57,6 +64,18 @@ interface ImageReceiverContract {
          * Must show the success of upload and allow the user to leave the screen.
          */
         fun showSuccess()
+
+        /**
+         * Must display the preview to the user.
+         *
+         * @param path preview file path
+         */
+        fun showPreview(preview: Bitmap?)
+
+        /**
+         * Must display a send option to the user.
+         */
+        fun showSend()
 
     }
 }

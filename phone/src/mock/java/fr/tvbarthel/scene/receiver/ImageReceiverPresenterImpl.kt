@@ -1,9 +1,12 @@
 package fr.tvbarthel.scene.receiver
 
-import android.net.Uri
+import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.CountDownTimer
+import fr.tvbarthel.scene.R
 
-class ImageReceiverPresenterImpl : ImageReceiverContract.Presenter {
+class ImageReceiverPresenterImpl(var context: Context) : ImageReceiverContract.Presenter {
 
     private var view: ImageReceiverContract.View? = null
     private var countDownTimer: CountDownTimer? = null
@@ -17,7 +20,22 @@ class ImageReceiverPresenterImpl : ImageReceiverContract.Presenter {
         countDownTimer?.cancel()
     }
 
-    override fun send(uri: Uri, scene: String) {
+    override fun prepareImage(intent: Intent) {
+        view?.showLoading()
+
+        countDownTimer = object : CountDownTimer(2500, 2500) {
+            override fun onTick(millisUntilFinished: Long) {
+            }
+
+            override fun onFinish() {
+                view?.showPreview(BitmapFactory.decodeResource(context.resources, R.drawable.test))
+                view?.showSend()
+            }
+        }
+        countDownTimer?.start()
+    }
+
+    override fun sendImage(scene: String) {
         view?.showLoading()
 
         countDownTimer = object : CountDownTimer(1000, 1000) {

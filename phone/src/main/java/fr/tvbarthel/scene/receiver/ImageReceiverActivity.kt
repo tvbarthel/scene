@@ -1,6 +1,6 @@
 package fr.tvbarthel.scene.receiver
 
-import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -20,18 +20,16 @@ class ImageReceiverActivity : AppCompatActivity(), ImageReceiverContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         SceneApplication.graph.inject(this)
         setContentView(R.layout.activity_image_receiver)
-
         activity_image_receiver_send_button.setOnClickListener(this::onSendImageRequested)
-
         activity_image_receiver_ip_edit.setText(presenter.lastScene() ?: "")
     }
 
     override fun onResume() {
         super.onResume()
         presenter.attach(this)
+        presenter.prepareImage(intent)
     }
 
     override fun onPause() {
@@ -57,11 +55,17 @@ class ImageReceiverActivity : AppCompatActivity(), ImageReceiverContract.View {
         finish()
     }
 
+    override fun showPreview(preview: Bitmap?) {
+        activity_image_receiver_preview.setImageBitmap(preview)
+    }
+
+    override fun showSend() {
+        activity_image_receiver_loading.visibility = View.INVISIBLE
+        activity_image_receiver_send_button.visibility = View.VISIBLE
+    }
+
     private fun onSendImageRequested(view: View) {
-        presenter.send(
-                intent.getParcelableExtra(Intent.EXTRA_STREAM),
-                activity_image_receiver_ip_edit.text.toString()
-        )
+        presenter.sendImage(activity_image_receiver_ip_edit.text.toString())
     }
 
 }

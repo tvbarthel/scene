@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Scene</string>
+    <string name="welcome_message">Welcome in Scene!\n\n\nSimply select the scene app while sharing a photo from your favorite photo app~~</string>
 </resources>

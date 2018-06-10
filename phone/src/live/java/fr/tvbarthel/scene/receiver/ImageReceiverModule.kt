@@ -2,6 +2,7 @@ package fr.tvbarthel.scene.receiver
 
 import dagger.Module
 import dagger.Provides
+import fr.tvbarthel.scene.http.SceneClient
 import fr.tvbarthel.scene.storage.StorageManager
 
 /**
@@ -11,7 +12,9 @@ import fr.tvbarthel.scene.storage.StorageManager
 class ImageReceiverModule {
 
     @Provides
-    fun provideImageReceiverPresenter(storageManager: StorageManager): ImageReceiverContract.Presenter {
-        return ImageReceiverPresenterImpl(storageManager)
+    fun provideImageReceiverPresenter(
+            storageManager: StorageManager, sceneClient: SceneClient
+    ): ImageReceiverContract.Presenter {
+        return ImageReceiverPresenterImpl(storageManager, sceneClient)
     }
 }

@@ -4,12 +4,15 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.CountDownTimer
+import fr.tvbarthel.scene.http.SceneClient
 import fr.tvbarthel.scene.storage.StorageManager
+import java.io.File
 
-class ImageReceiverPresenterImpl(var storage: StorageManager) : ImageReceiverContract.Presenter {
+class ImageReceiverPresenterImpl(var storage: StorageManager, var client: SceneClient) : ImageReceiverContract.Presenter {
 
     private var view: ImageReceiverContract.View? = null
     private var countDownTimer: CountDownTimer? = null
+    private var photo: String? = null
 
     override fun attach(view: ImageReceiverContract.View) {
         this.view = view
@@ -23,25 +26,21 @@ class ImageReceiverPresenterImpl(var storage: StorageManager) : ImageReceiverCon
     override fun prepareImage(intent: Intent) {
         val uri: Uri = intent.getParcelableExtra(Intent.EXTRA_STREAM)
         view?.showLoading()
-        val file = storage.storeImage(uri)
-        view?.showPreview(BitmapFactory.decodeFile(file))
+        photo = storage.storeImage(uri)
+        view?.showPreview(BitmapFactory.decodeFile(photo))
         view?.showSend()
     }
 
     override fun sendImage(scene: String) {
-        view?.showLoading()
-
-        storage.storeScene(scene)
-
-        countDownTimer = object : CountDownTimer(1000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-            }
-
-            override fun onFinish() {
-                view?.showError("No implemented")
-            }
+        if (photo == null) {
+            view?.showError("No photo to send")
+            return
         }
-        countDownTimer?.start()
+
+        view?.showLoading()
+        storage.storeScene(scene)
+        client.send(File(photo), scene)
+        view?.showSuccess()
 
     }
 

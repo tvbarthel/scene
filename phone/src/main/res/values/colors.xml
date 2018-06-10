@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#fec100</color>
-    <color name="colorPrimaryDark">#ffab00</color>
-    <color name="colorAccent">#fec100</color>
+    <color name="colorPrimary">@color/scene_yellow_default</color>
+    <color name="colorPrimaryDark">@color/scene_yellow_dark</color>
+    <color name="colorAccent">@color/scene_yellow_default</color>
+
+    <color name="scene_yellow_default">#FEC81C</color>
+    <color name="scene_yellow_light">#FFDA79</color>
+    <color name="scene_yellow_dark">#FFAB00</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey_light">#dddddd</color>
+
+    <color name="instruction_share_icon">@color/grey_light</color>
+    <color name="instruction_scene_icon">@color/scene_yellow_default</color>
 </resources>

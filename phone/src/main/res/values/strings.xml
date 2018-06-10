@@ -3,4 +3,11 @@
     <string name="ip_and_port">192.168.0.1:400</string>
     <string name="send_to_scene">Send to my Scene</string>
     <string name="success">Enjoy on your Scene!</string>
+    <string name="more_inc">More incoming soon.</string>
+    <string name="tvbarthel">TVBARTHEL</string>
+    <string name="scene">scene</string>
+    <string name="press">Press</string>
+    <string name="instruction"><![CDATA[Press <icon_share> from your favorite photo app and select <icon_scene>.]]></string>
+    <string name="instruction_icon_share"><![CDATA[<icon_share>]]></string>
+    <string name="instruction_icon_scene"><![CDATA[<icon_scene>]]></string>
 </resources>

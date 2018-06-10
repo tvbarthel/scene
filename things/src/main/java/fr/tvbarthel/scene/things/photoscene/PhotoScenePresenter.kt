@@ -2,9 +2,12 @@ package fr.tvbarthel.scene.things.photoscene
 
 import fr.tvbarthel.scene.things.file.FileManager
 import fr.tvbarthel.scene.things.server.PhotoUploadServerManager
+import fr.tvbarthel.scene.things.wifi.IpResolver
 import java.io.File
 
-class PhotoScenePresenter(fileManager: FileManager) : PhotoSceneContract.Interactor {
+class PhotoScenePresenter(fileManager: FileManager,
+                          private val ipResolver: IpResolver)
+    : PhotoSceneContract.Interactor {
 
     private val server: PhotoUploadServerManager
     private var latestPhoto: File? = null
@@ -22,7 +25,8 @@ class PhotoScenePresenter(fileManager: FileManager) : PhotoSceneContract.Interac
     override fun attachScreen(screen: PhotoSceneContract.Screen) {
         this.screen = screen
 
-        screen.showIpAddress("192.168.1.81")
+        val idAddress = ipResolver.resolveIpAddress()
+        screen.showIpAddress(idAddress)
         if (latestPhoto != null) {
             screen.showPhoto(latestPhoto!!)
         }

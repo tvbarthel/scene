@@ -27,8 +27,9 @@ class PhotoScenePresenter(fileManager: FileManager,
 
         val idAddress = ipResolver.resolveIpAddress()
         screen.showIpAddress(idAddress)
-        if (latestPhoto != null) {
-            screen.showPhoto(latestPhoto!!)
+
+        latestPhoto?.let {
+            screen.showPhoto(it)
         }
     }
 

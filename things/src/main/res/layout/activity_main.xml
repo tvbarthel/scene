@@ -14,14 +14,15 @@
         tools:ignore="ContentDescription" />
 
     <TextView
+        android:id="@+id/mainIpAddressTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#80000000"
         android:gravity="center_vertical"
         android:padding="16dp"
-        android:text="IP Address: 192.168.1.81"
         android:textColor="#FFFFFF"
-        android:textSize="26sp" />
+        android:textSize="26sp"
+        tools:text="IP Address: 192.168.1.81" />
 
 
 </android.support.constraint.ConstraintLayout>

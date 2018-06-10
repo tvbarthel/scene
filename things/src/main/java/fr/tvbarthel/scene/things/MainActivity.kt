@@ -3,20 +3,48 @@ package fr.tvbarthel.scene.things
 import android.app.Activity
 import android.os.Bundle
 import com.squareup.picasso.Picasso
+import fr.tvbarthel.scene.things.file.FileManager
+import fr.tvbarthel.scene.things.photoscene.PhotoSceneContract
+import fr.tvbarthel.scene.things.photoscene.PhotoScenePresenter
 import kotlinx.android.synthetic.main.activity_main.*
+import java.io.File
 
-class MainActivity : Activity() {
+class MainActivity : Activity(), PhotoSceneContract.Screen {
 
-    companion object {
-        const val IMAGE_URL = "https://cdn.pixabay.com/photo/2017/12/30/08/41/panoramic-3049543_960_720.jpg"
-    }
+    private lateinit var interactor: PhotoSceneContract.Interactor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Picasso.get()
-                .load(IMAGE_URL)
-                .into(mainImageView)
+        val fileManager = FileManager(applicationContext)
+        interactor = PhotoScenePresenter(fileManager)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        interactor.attachScreen(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        interactor.detachScreen()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        interactor.destroy()
+    }
+
+    override fun showIpAddress(ip: String) {
+        val ipText = getString(R.string.main_ip_address_template, ip)
+        mainIpAddressTextView.text = ipText
+    }
+
+    override fun showPhoto(photo: File) {
+        runOnUiThread {
+            Picasso.get().invalidate(photo)
+            Picasso.get().load(photo).into(mainImageView)
+        }
     }
 }

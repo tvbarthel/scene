@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Scene</string>
+    <string name="main_ip_address_template">Ip Address %s</string>
 </resources>

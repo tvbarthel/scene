@@ -9,7 +9,7 @@
         android:id="@+id/mainImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffcf57"
+        android:background="@color/scene_yellow_default"
         android:scaleType="fitCenter"
         tools:ignore="ContentDescription" />
 
